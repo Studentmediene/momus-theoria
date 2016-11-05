@@ -1,6 +1,8 @@
 /* Custom stylesheet */
 
 
+
+/* Countdown directive */
 .countdown-table {
     border-collapse: collapse;
     text-align:center;
@@ -23,4 +25,26 @@
 .countdown-numbers{
     font-size: 100px;
     line-height: 80%;
+}
+
+/* Words directive */
+
+.word-text{
+    font-size: 30px;
+    vertical-align: middle;
+}
+.word-number{
+    line-height: 100%;
+    font-size: 70px;
+}
+
+.word-bar-table{
+    table-layout: fixed;
+    border: solid 1px gray;
+}
+.word-bar-element{
+    height:30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
 }

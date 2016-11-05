@@ -1,0 +1,23 @@
+<div>
+    <div class="word-text">
+        <span class="word-number">{{totalLength}}</span> tegn skrevet.
+        <br>
+        <span class="word-number">{{articles.length}}</span> artikler.
+        <br>
+        <span class="word-number">{{totalLength/articles.length}}</span> tegn i gjennomsnitt.
+        <br>
+        <span class="word-number">{{symbolsPerHour}}</span> tegn per time for å nå igjen forrige utgave.
+    </div>
+    <table class="word-bar-table">
+        <tr>
+            <td ng-repeat="section in sectionSymbols">
+                <div ng-show="section.length > 0"
+                     class="word-bar-element"
+                     style="{{'width: ' + (section.length/totalLength)*totalBarLength + 'px;background-color: ' + section.section.color}}">
+                    <span>{{section.section.name}}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
