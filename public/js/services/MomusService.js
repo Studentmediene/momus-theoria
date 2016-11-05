@@ -17,6 +17,18 @@
 'use strict';
 
 angular.module('theoriApp.services')
-    .service('ArticleService', function ($http) {
+    .service('MomusService', function ($http) {
+        var momusUrl = "http://10.24.18.119:8080/api/public";
+        var username = "test";
+        var password = "testesen";
+        var headers = {"Authorization": "Basic " + btoa(username + ":" + password)};
 
+        return {
+            testConnection: function(){
+                return $http.get(momusUrl + "/test", {headers:headers});
+            },
+            getArticles: function(){
+                return $http.get(momusUrl + "/articles", {headers:headers});
+            }
+        }
     });
