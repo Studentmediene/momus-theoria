@@ -17,8 +17,10 @@
 'use strict';
 
 angular.module('theoriApp.controllers')
-    .controller('FrontPageCtrl', function ($scope){
+    .controller('FrontPageCtrl', function ($scope, MomusService){
 
-        $scope.test = "ldskjfsldfjsldjfsf";
+        MomusService.getArticles().success(function(data){
+            $scope.articles = data;
+        });
 
     });
