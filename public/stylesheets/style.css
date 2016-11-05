@@ -1,1 +1,26 @@
 /* Custom stylesheet */
+
+
+.countdown-table {
+    border-collapse: collapse;
+    text-align:center;
+    vertical-align:middle;
+    table-layout: fixed;
+}
+
+.countdown-title{
+    font-size: 30px;
+}
+
+.countdown-text{
+    font-size: 20px;
+}
+
+.countdown-fixed-width{
+    width: 140px;
+}
+
+.countdown-numbers{
+    font-size: 100px;
+    line-height: 80%;
+}

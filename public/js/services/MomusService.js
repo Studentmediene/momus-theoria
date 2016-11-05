@@ -28,7 +28,10 @@ angular.module('theoriApp.services')
                 return $http.get(momusUrl + "/test", {headers:headers});
             },
             getArticles: function(){
-                return $http.get(momusUrl + "/articles", {headers:headers});
+                return $http.get(momusUrl + "/article", {headers:headers});
+            },
+            getActivePublication: function(){
+                return $http.get(momusUrl + "/publication/active", {headers:headers});
             }
         }
     });

@@ -1,0 +1,26 @@
+<table class="countdown-table">
+    <tr>
+        <td colspan="7" class="countdown-title">{{publication.name}}</td>
+    </tr>
+    <tr>
+        <td colspan="7" class="countdown-title">Utgivelse: {{publication.release_date}}</td>
+    </tr>
+    <tr class="countdown-text">
+        <td class="countdown-fixed-width">Dager</td>
+        <td></td>
+        <td class="countdown-fixed-width">Timer</td>
+        <td></td>
+        <td class="countdown-fixed-width">Minutter</td>
+        <td></td>
+        <td class="countdown-fixed-width">Sekunder</td>
+    </tr>
+    <tr class="countdown-numbers">
+        <td class="countdown-fixed-width">{{timeLeft.days}}</td>
+        <td>:</td>
+        <td class="countdown-fixed-width">{{timeLeft.hours}}</td>
+        <td>:</td>
+        <td class="countdown-fixed-width">{{timeLeft.minutes}}</td>
+        <td>:</td>
+        <td class="countdown-fixed-width">{{timeLeft.seconds}}</td>
+    </tr>
+</table>
