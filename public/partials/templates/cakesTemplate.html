@@ -1,0 +1,47 @@
+<div class="col-md-12">
+    <div class="col-md-4">
+        <div>
+            <status-chart
+                data="statusCounts"
+                labels="statusLabels"
+                colors="statusChartColors"
+            </status-chart>
+        </div>
+        <table class="table">
+            <tr ng-repeat="status in statusLabels track by $index">
+                <td>{{status}}</td>
+                <td>{{statusCounts[$index]}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <div>
+            <status-chart
+                    data="reviewStatusCounts"
+                    labels="reviewStatusLabels"
+                    colors="reviewStatusChartColors">
+            </status-chart>
+        </div>
+        <table class="table">
+            <tr ng-repeat="status in reviewStatusLabels track by $index">
+                <td>{{status}}</td>
+                <td>{{reviewStatusCounts[$index]}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <div>
+            <status-chart
+                    data="layoutStatusCounts"
+                    labels="layoutStatusLabels"
+                    colors="layoutStatusChartColors">
+            </status-chart>
+        </div>
+        <table class="table">
+            <tr ng-repeat="status in layoutStatusLabels track by $index">
+                <td>{{status}}</td>
+                <td>{{layoutStatusCounts[$index]}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
