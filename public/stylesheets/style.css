@@ -69,3 +69,15 @@ body {
     line-height: 20px;
     font-weight: bold;
 }
+
+/* Pie charts */
+.pie {
+    float:left;
+    height:300px;
+    width:300px;
+    margin:20px;
+}
+
+.pie h2 {
+    text-align:center;
+}

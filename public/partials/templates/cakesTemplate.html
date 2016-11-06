@@ -1,29 +1,24 @@
-<div class="col-md-12">
-    <div class="col-md-4">
-        <div>
-            <status-chart
-                data="statusCounts"
-                labels="statusLabels"
-                colors="statusChartColors">
-            </status-chart>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div>
-            <status-chart
-                data="reviewStatusCounts"
-                labels="reviewStatusLabels"
-                colors="reviewStatusChartColors">
-            </status-chart>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div>
-            <status-chart
-                data="layoutStatusCounts"
-                labels="layoutStatusLabels"
-                colors="layoutStatusChartColors">
-            </status-chart>
-        </div>
-    </div>
+<div class="pie">
+    <h2>Artikkelstatus</h2>
+    <status-chart
+        data="statusCounts"
+        labels="statusLabels"
+        colors="statusChartColors">
+    </status-chart>
+</div>
+<div class="pie">
+    <h2>Korrekturstatus</h2>
+    <status-chart
+        data="reviewStatusCounts"
+        labels="reviewStatusLabels"
+        colors="reviewStatusChartColors">
+    </status-chart>
+</div>
+<div class="pie">
+    <h2>Layoutstatus</h2>
+    <status-chart
+        data="layoutStatusCounts"
+        labels="layoutStatusLabels"
+        colors="layoutStatusChartColors">
+    </status-chart>
 </div>
