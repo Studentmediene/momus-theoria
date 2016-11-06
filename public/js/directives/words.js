@@ -27,60 +27,91 @@ angular.module('theoriApp.directives')
                     return Math.floor(num);
                 };
 
+                var activePubReleaseDate;
+                scope.sectionSymbols = {};
+                scope.totalBarLength = 800;
+                scope.totalLength = 0;
+
+                // To keep track of how long the app has been running,
+                // to see how many symbols have been written the last time span. (caps at 60 minutes)
+                var first = true;
+                var historicData = [];
+
+
                 var update = function(){
+                    // Get articles and update
                     MomusService.getArticlesInActivePublication().success(function(data){
                         scope.articles = data;
-                        scope.totalLength = 0;
 
-                        scope.sectionSymbols = {};
-                        scope.totalBarLength = 800;
-
-                        var activeRelease = new Date(scope.activePub['release_date']);
-
-                        //Populate section symbol lengths
+                        //Reset section symbol lengths
                         for(var j = 0; j < scope.sections.length;j++){
                             scope.sectionSymbols[scope.sections[j].id] = {
                                 section: scope.sections[j],
                                 length: 0
                             };
                         }
+
+                        var lastLength = scope.totalLength;
                         //Find total symbols globally and per section
                         scope.totalLength = 0;
+                        scope.longestArticle = scope.articles[0];
                         for(var i = 0; i < scope.articles.length;i++){
                             scope.totalLength += scope.articles[i].content_length;
                             scope.sectionSymbols[scope.articles[i].section.id].length += scope.articles[i].content_length;
+
+                            if(scope.articles[i].content_length > scope.longestArticle.content_length){
+                                scope.longestArticle = scope.articles[i];
+                            }
+
                         }
 
-                        for(var p = 0; p < scope.publications.length;p++){
-                            var date = new Date(scope.publications[p]['release_date']);
-                            if(date-activeRelease < 0){
-                                scope.lastPublication = scope.publications[p];
-                                break;
-                            }
+                        while(historicData.length >= 120){
+                            historicData.shift();
+                        }
+                        if(!first){
+                            historicData.push(scope.totalLength-lastLength);
                         }
 
-                        MomusService.getArticlesInPublication(scope.lastPublication.id).success(function(data){
-                            scope.lastSymbolLength = 0;
-                            for(var i = 0; i < data.length; i++){
-                                scope.lastSymbolLength += data[i]["content_length"];
-                            }
-                            scope.symbolsLeft = scope.lastSymbolLength-scope.totalLength;
-                            scope.hoursLeft = (activeRelease - new Date())/(1000*60*60);
-                            scope.symbolsPerHour = Math.ceil(scope.symbolsLeft/scope.hoursLeft);
+                        scope.timeSpan = historicData.length / 2;
+                        scope.symbolsAdded = 0;
 
+                        //Find total symbols written the last time span
+                        for(var a = 0; a < historicData.length; a++){
+                            scope.symbolsAdded += historicData[a];
+                        }
 
-                        });
+                        scope.symbolsLeft = scope.prevTotalLength-scope.totalLength;
+                        if(scope.symbolsLeft < 0){
+                            scope.symbolsLeft = 0;
+                        }
+                        scope.hoursLeft = (activePubReleaseDate - new Date())/(1000*60*60);
+                        scope.symbolsPerHour = Math.ceil(scope.symbolsLeft/scope.hoursLeft);
+
+                        first = false;
                     })
                 };
                 $q.all([
                     MomusService.getActivePublication(),
-                    MomusService.getPublications(),
+                    MomusService.getLastPublication(),
                     MomusService.getSections()
                 ]).then(function(data){
                     scope.activePub = data[0].data;
-                    scope.publications = data[1].data;
+                    activePubReleaseDate = new Date(scope.activePub['release_date']);
+                    scope.prevPub = data[1].data;
                     scope.sections = data[2].data;
-                    $interval(update, 1000);
+
+                    MomusService.getArticlesInPublication(scope.prevPub.id).success(function(data){
+                        scope.prevTotalLength = 0;
+                        for(var i = 0; i < data.length; i++){
+                            scope.prevTotalLength += data[i]["content_length"];
+                        }
+
+                        // Update data every 30 seconds.
+                        // More often is not necessary since Momus fetches data from Drive only every minute
+                        update();
+                        $interval(update, 30000);
+
+                    });
                 });
             }
         };
