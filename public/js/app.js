@@ -28,5 +28,6 @@ angular.module('theoriApp', [
     'theoriApp.controllers',
     'theoriApp.filters',
     'theoriApp.services',
-    'theoriApp.directives'
+    'theoriApp.directives',
+    'chart.js'
     ]);

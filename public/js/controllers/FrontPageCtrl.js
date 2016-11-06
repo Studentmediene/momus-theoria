@@ -19,8 +19,5 @@
 angular.module('theoriApp.controllers')
     .controller('FrontPageCtrl', function ($scope, MomusService){
 
-        MomusService.getArticles().success(function(data){
-            $scope.articles = data;
-        });
 
     });
