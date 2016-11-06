@@ -1,1 +1,71 @@
 /* Custom stylesheet */
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.container {
+    width: 1900px;
+    margin: 10px;
+}
+
+/* Countdown directive */
+
+.countdown-table {
+    border-collapse: collapse;
+    text-align:center;
+    vertical-align:middle;
+    table-layout: fixed;
+}
+
+.countdown-title{
+    font-size: 50px;
+}
+
+.countdown-text{
+    font-size: 30px;
+}
+
+.countdown-fixed-width{
+    width: 200px;
+}
+
+.countdown-numbers{
+    font-size: 150px;
+    line-height: 80%;
+}
+
+/* Words directive */
+
+.word-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.word-table tr td{
+    width:400px;
+}
+
+.word-text{
+    font-size: 30px;
+    vertical-align: top;
+}
+
+.word-number{
+    font-size: 100px;
+    height: 120px;
+    line-height: 80%;
+    vertical-align: bottom;
+}
+
+.word-bar-table{
+    table-layout: fixed;
+    border: solid 2px gray;
+}
+.word-bar-element{
+    height:60px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    font-weight: bold;
+}

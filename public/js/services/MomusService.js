@@ -48,8 +48,23 @@ angular.module('theoriApp.services')
             getLayoutStatuses: function(){
                 return $http.get(momusUrl + "/publication/layoutstatuses", {headers:headers});
             },
-            getLayoutStatusCounts: function(id){
-                return $http.get(momusUrl + "/publication/layoutstatuscounts/" + id, {headers:headers})
+            getLayoutStatusCounts: function(id) {
+                return $http.get(momusUrl + "/publication/layoutstatuscounts/" + id, {headers: headers});
+            },
+            getPublications: function(){
+                return $http.get(momusUrl + "/publication", {headers:headers});
+            },
+            getArticlesInActivePublication: function(){
+                return $http.get(momusUrl + "/publication/active/articles", {headers:headers});
+            },
+            getLastPublication: function(){
+                return $http.get(momusUrl + "/publication/previous", {headers:headers});
+            },
+            getArticlesInPublication: function(id){
+                return $http.get(momusUrl + "/publication/" + id + "/articles", {headers:headers});
+            },
+            getSections: function(){
+                return $http.get(momusUrl + "/section", {headers:headers});
             }
         }
     });

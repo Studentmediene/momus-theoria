@@ -1,0 +1,44 @@
+<div>
+    <table class=" word-table">
+        <tr>
+            <td class="word-number">{{articles.length}}</td>
+            <td class="word-number">{{totalLength}}</td>
+        </tr>
+        <tr>
+            <td class="word-text">artikler.</td>
+            <td class="word-text">tegn skrevet.</td>
+        </tr>
+        <tr>
+            <td class="word-number">{{floor(totalLength/articles.length)}}</td>
+            <td class="word-number">{{symbolsAdded}}</td>
+        </tr>
+        <tr>
+            <td class="word-text">tegn i gjennomsnitt.</td>
+            <td class="word-text">tegn skrevet de siste {{timeSpan}} minuttene.</td>
+
+        </tr>
+        <tr>
+            <td class="word-number">{{longestArticle.content_length}}</td>
+            <td class="word-number">{{symbolsPerHour}}</td>
+        </tr>
+        <tr>
+            <td class="word-text">tegn i lengste artikkel.</td>
+            <td class="word-text">tegn per time for å nå igjen forrige utgave. ({{prevTotalLength}} tegn)</td>
+        </tr>
+    </table>
+    <div style="height: 50px"></div>
+    <table class="word-bar-table">
+        <tr>
+            <td ng-repeat="section in sectionSymbols">
+                <div ng-show="section.length > 0"
+                     class="word-bar-element"
+                     style="{{'width: ' + (section.length/totalLength)*totalBarLength + 'px;background-color: ' + section.section.color}}">
+                    <div>{{section.section.name}}</div>
+                    <div>{{section.length}}</div>
+                    <div>{{floor((section.length/totalLength)*100)}}%</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
