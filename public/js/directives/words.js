@@ -22,13 +22,18 @@ angular.module('theoriApp.directives')
             restrict: 'E',
             templateUrl: '/partials/templates/wordsTemplate.html',
             link: function(scope, element, attrs) {
+
+                scope.floor = function(num){
+                    return Math.floor(num);
+                };
+
                 var update = function(){
                     MomusService.getArticlesInActivePublication().success(function(data){
                         scope.articles = data;
                         scope.totalLength = 0;
 
                         scope.sectionSymbols = {};
-                        scope.totalBarLength = 700;
+                        scope.totalBarLength = 800;
 
                         var activeRelease = new Date(scope.activePub['release_date']);
 
