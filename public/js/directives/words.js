@@ -27,23 +27,22 @@ angular.module('theoriApp.directives')
                     return Math.floor(num);
                 };
 
+                var randomProperty = function (obj) {
+                    var keys = Object.keys(obj);
+                    return keys[ keys.length * Math.random() << 0];
+                };
+
                 var activePubReleaseDate;
                 scope.sectionSymbols = {};
                 scope.totalBarLength = 800;
                 scope.totalLength = 0;
 
-                var dictionary = [
-                    "spit", "trump", "samfundet", "øl",
-                    "ntnu", "bovim", "dusken",
-                    "pokemon", "lorem", "ipsum", "usa",
-                    "gløshaugen", "dragvoll", "studentmediene",
-                    "hist", "edgar", "isfit", "uka", "dahls", "student"
-                ];
-
                 // To keep track of how long the app has been running,
                 // to see how many symbols have been written the last time span. (caps at 60 minutes)
                 var first = true;
                 var historicData = [];
+
+                var refreshTime = 30000; //milliseconds
 
 
                 var update = function(){
@@ -62,8 +61,7 @@ angular.module('theoriApp.directives')
                         var lastLength = scope.totalLength;
                         scope.totalLength = 0;
 
-                        scope.word = dictionary[Math.floor(Math.random()*dictionary.length)];
-                        scope.wordOccurences = 0;
+                        var dictionary = {};
 
                         //Find total symbols globally and per section
                         for(var i = 0; i < scope.articles.length;i++){
@@ -73,14 +71,31 @@ angular.module('theoriApp.directives')
                                 continue;
                             }
 
-                            //Find occurences of random word in the content
+                            //Find occurrences of random word in the content
                             var words = scope.articles[i].rawcontent.split(" ");
                             for(var k = 0; k < words.length; k++) {
-                                if (words[k].toLowerCase() == scope.word) {
-                                    scope.wordOccurences++;
+                                var word = words[k];
+                                word = word.replace(/\W/g, '').toLowerCase();
+                                if (word.length < 4){
+                                    continue;
+                                }
+                                if(word in dictionary){
+                                    dictionary[word] += 1;
+                                }else{
+                                    dictionary[word] = 1;
                                 }
                             }
                         }
+                        console.log(dictionary);
+                        scope.wordOccurences = 0;
+                        var timeout = dictionary.length;
+                        var x = 0;
+                        while(scope.wordOccurences < 10 || x >= timeout){
+                            scope.word = randomProperty(dictionary);
+                            scope.wordOccurences = dictionary[scope.word];
+                            x++;
+                        }
+
 
                         while(historicData.length >= 120){
                             historicData.shift();
@@ -89,7 +104,7 @@ angular.module('theoriApp.directives')
                             historicData.push(scope.totalLength-lastLength);
                         }
 
-                        scope.timeSpan = historicData.length / 2;
+                        scope.timeSpan = historicData.length / (60000/refreshTime);
                         scope.symbolsAdded = 0;
 
                         //Find total symbols written the last time span
@@ -126,7 +141,7 @@ angular.module('theoriApp.directives')
                         // Update data every 30 seconds.
                         // More often is not necessary since Momus fetches data from Drive only every minute
                         update();
-                        $interval(update, 30000);
+                        $interval(update, refreshTime);
 
                     });
                 });
