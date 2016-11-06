@@ -32,6 +32,12 @@ angular.module('theoriApp.directives')
                 scope.totalBarLength = 800;
                 scope.totalLength = 0;
 
+                var dictionary = [
+                    "spit", "trump", "samfundet", "øl",
+                    "ntnu", "bovim", "dusken",
+                    "pokemon", "lorem", "ipsum", "usa"
+                ];
+
                 // To keep track of how long the app has been running,
                 // to see how many symbols have been written the last time span. (caps at 60 minutes)
                 var first = true;
@@ -52,18 +58,27 @@ angular.module('theoriApp.directives')
                         }
 
                         var lastLength = scope.totalLength;
-                        //Find total symbols globally and per section
                         scope.totalLength = 0;
-                        scope.longestArticle = scope.articles[0];
+
+                        scope.word = dictionary[Math.floor(Math.random()*dictionary.length)];
+                        scope.wordOccurences = 0;
+
+                        //Find total symbols globally and per section
                         for(var i = 0; i < scope.articles.length;i++){
                             scope.totalLength += scope.articles[i].content_length;
                             scope.sectionSymbols[scope.articles[i].section.id].length += scope.articles[i].content_length;
-
-                            if(scope.articles[i].content_length > scope.longestArticle.content_length){
-                                scope.longestArticle = scope.articles[i];
+                            if(!scope.articles[i].rawcontent){
+                                continue;
                             }
 
+                            var words = scope.articles[i].rawcontent.split(" ");
+                            for(var k = 0; k < words.length; k++) {
+                                if (words[k].toLowerCase() == scope.word) {
+                                    scope.wordOccurences++;
+                                }
+                            }
                         }
+                        console.log(scope.word + " " + scope.wordOccurences);
 
                         while(historicData.length >= 120){
                             historicData.shift();
