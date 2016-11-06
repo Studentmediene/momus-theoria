@@ -35,7 +35,9 @@ angular.module('theoriApp.directives')
                 var dictionary = [
                     "spit", "trump", "samfundet", "øl",
                     "ntnu", "bovim", "dusken",
-                    "pokemon", "lorem", "ipsum", "usa"
+                    "pokemon", "lorem", "ipsum", "usa",
+                    "gløshaugen", "dragvoll", "studentmediene",
+                    "hist", "edgar", "isfit", "uka", "dahls", "student"
                 ];
 
                 // To keep track of how long the app has been running,
@@ -71,6 +73,7 @@ angular.module('theoriApp.directives')
                                 continue;
                             }
 
+                            //Find occurences of random word in the content
                             var words = scope.articles[i].rawcontent.split(" ");
                             for(var k = 0; k < words.length; k++) {
                                 if (words[k].toLowerCase() == scope.word) {
@@ -78,7 +81,6 @@ angular.module('theoriApp.directives')
                                 }
                             }
                         }
-                        console.log(scope.word + " " + scope.wordOccurences);
 
                         while(historicData.length >= 120){
                             historicData.shift();
