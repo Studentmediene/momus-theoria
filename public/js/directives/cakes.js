@@ -17,7 +17,7 @@
 'use strict';
 
 angular.module('theoriApp.directives').
-directive('cakes', function($rootScope, $window, $q, MomusService) {
+directive('cakes', function($rootScope, $window, $q, $interval, MomusService) {
     return {
         restrict: 'E',
         templateUrl:'/partials/templates/cakesTemplate.html',
@@ -59,6 +59,16 @@ directive('cakes', function($rootScope, $window, $q, MomusService) {
                         scope.layoutStatusChartColors.push(scope.layoutStatuses[i].color);
                     }
                 });
+
+                scope.updateInfo = function(){
+                    $q.all([MomusService.getStatusCounts(scope.activePublication.id), MomusService.getReviewStatusCounts(scope.activePublication.id),MomusService.getLayoutStatusCounts(scope.activePublication.id)]).then(function(data){
+                        scope.statusCounts = data[0].data;
+                        scope.reviewStatusCounts = data[1].data;
+                        scope.layoutStatusCounts = data[2].data;
+                    });
+                };
+
+                $interval(scope.updateInfo, 30000)
             });
         }
     }
