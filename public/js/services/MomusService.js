@@ -18,7 +18,7 @@
 
 angular.module('theoriApp.services')
     .service('MomusService', function ($http) {
-        var momusUrl = "http://10.24.18.119:8080/api/public";
+        var momusUrl = "http://localhost:8080/api/public";
         var username = "test";
         var password = "testesen";
         var headers = {"Authorization": "Basic " + btoa(username + ":" + password)};
